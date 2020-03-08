@@ -22,7 +22,12 @@ Toolkit.run(async tools => {
 
       Object.keys(registries).map(async registry => {
         const { url, token } = registries[registry];
-        await exec('npm', ['publish', `--registry=${url}/:_authToken=${token}`]);
+        try {
+          await exec('npm', ['publish', `--registry=${url}//:_authToken=${token}`]);
+        } catch (error) {
+          throw (`Failed to publish! ${error}`);
+        }
+
         tools.log(`Successfully published to ${registry} !`);
       });
     }
