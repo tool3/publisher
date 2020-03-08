@@ -9,23 +9,23 @@ Toolkit.run(async tools => {
 
       const registries = {
         github: {
-          url: 'https://npm.pkg.github.com',
+          url: 'npm.pkg.github.com',
           token: core.getInput('github_token')
         },
         npm: {
-          url: 'https://registry.npmjs.org',
+          url: 'registry.npmjs.org',
           token: core.getInput('npm_token')
         }
       };
 
       tools.log(`using scope: ${scope}`);
 
-      Object.keys(registries).map(async registry => {
+      Object.keys(registries).forEach(async registry => {
         const { url, token } = registries[registry];
         tools.log(`Publishing to ${registry}...`);
         try {
-          core.exportVariable('NPM_TOKEN', token);
-          await exec('npm', ['publish', `--registry=${url}`]);
+          await exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`]);
+          await exec('npm', ['publish']);
         } catch (error) {
           throw (`Failed to publish! ${error}`);
         }
