@@ -2173,7 +2173,7 @@ Toolkit.run(async tools => {
       const { url, token } = registries[registry];
       tools.log(`Publishing to ${registry}...`);
       try {
-        await exec('npm', ['publish', `--registry=//${url}/:_authToken=${token}`]);
+        await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
       } catch (error) {
         core.setFailed(`Failed to publish ${error.message}`);
       }
