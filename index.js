@@ -9,11 +9,11 @@ Toolkit.run(async tools => {
 
       const registries = {
         github: {
-          url: 'https://npm.pkg.github.com/',
+          url: 'https://npm.pkg.github.com',
           token: core.getInput('github_token')
         },
         npm: {
-          url: 'https://registry.npmjs.org/',
+          url: 'https://registry.npmjs.org',
           token: core.getInput('npm_token')
         }
       };
