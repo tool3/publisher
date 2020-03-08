@@ -24,7 +24,8 @@ Toolkit.run(async tools => {
         const { url, token } = registries[registry];
         tools.log(`Publishing to ${registry}...`);
         try {
-          await exec('npm', ['publish', `--registry=${url}//:_authToken=${token}`]);
+          core.exportVariable('NPM_TOKEN', token);
+          await exec('npm', ['publish', `--registry=${url}`]);
         } catch (error) {
           throw (`Failed to publish! ${error}`);
         }
