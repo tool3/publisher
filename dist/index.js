@@ -2181,8 +2181,6 @@ Toolkit.run(async tools => {
 
       tools.log(`Successfully published to ${registry} !`);
     });
-
-    core.ExitCode(0);
   }
 });
 
