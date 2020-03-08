@@ -1,4 +1,4 @@
-name: 'publisher'
+name: 'publisher-action'
 description: 'publish to npm and github registries'
 inputs:
   scope:  
