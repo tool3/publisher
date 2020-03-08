@@ -2152,6 +2152,7 @@ const { exec } = __webpack_require__(986);
 const { Toolkit } = __webpack_require__(461);
 
 Toolkit.run(async tools => {
+  {
     const scope = core.getInput('scope');
 
     const registries = {
@@ -2171,14 +2172,16 @@ Toolkit.run(async tools => {
       core.group(registry);
       const { url, token } = registries[registry];
       tools.log(`Publishing to ${registry}...`);
-
-      await exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`])
-      await exec('npm', ['publish']);
-
+      try {
+        await exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`])
+        await exec('npm', ['publish']);
+      } catch (error) {
+        core.setFailed(`Failed to publish ${error.message}`);
+      }
       tools.log(`Successfully published to ${registry} !`);
     });
   }
-);
+});
 
 /***/ }),
 /* 105 */,
