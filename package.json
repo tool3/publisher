@@ -1,7 +1,7 @@
 {
-  "name": "bump",
-  "version": "1.0.11",
-  "description": "Bump Action",
+  "name": "publisher",
+  "version": "1.0.0",
+  "description": "publish to npm/github registries",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -11,23 +11,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+git@github.com:tool3/bump.git"
+    "url": "git+git@github.com:tool3/publisher.git"
   },
   "keywords": [
-    "GitHub",
-    "Actions",
-    "JavaScript"
+    "github-action",
+    "publish",
+    "javascript"
   ],
   "author": "Tal Hayut",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tool3/bump/issues"
+    "url": "https://github.com/tool3/publisher/issues"
   },
-  "homepage": "https://github.com/tool3/bump#readme",
+  "homepage": "https://github.com/tool3/publisher#readme",
   "dependencies": {
     "@actions/core": "^1.1.1",
     "@actions/exec": "^1.0.2",
-    "@actions/github": "^2.0.0",
     "actions-toolkit": "^2.2.0"
   },
   "devDependencies": {
