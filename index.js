@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const { exec } = require('@actions/exec');
 const { Toolkit } = require('actions-toolkit');
 
-Toolkit.run(tools => {
+Toolkit.run(async tools => {
   {
       const scope = core.getInput('scope');
 
@@ -19,16 +19,20 @@ Toolkit.run(tools => {
 
       tools.log(`using scope: ${scope}`);
 
-      Object.keys(registries).forEach(registry => {
+      Object.keys(registries).forEach(async registry => {
         const { url, token } = registries[registry];
         tools.log(`Publishing to ${registry}...`);
         try {
-          exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`]);
-          exec('npm', ['publish']);
+          core.group(registry);
+          exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`]).then(() => {
+            exec('npm', ['publish']);
+          });
         } catch (error) {
           core.setFailed(`Failed to publish! ${error.message}`);
         }
+        
         tools.log(`Successfully published to ${registry} !`);
+        core.ExitCode(0);
       });
     }
 });

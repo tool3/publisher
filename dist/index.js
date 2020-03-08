@@ -2151,7 +2151,7 @@ const core = __webpack_require__(470);
 const { exec } = __webpack_require__(986);
 const { Toolkit } = __webpack_require__(461);
 
-Toolkit.run(tools => {
+Toolkit.run(async tools => {
   {
       const scope = core.getInput('scope');
 
@@ -2168,16 +2168,20 @@ Toolkit.run(tools => {
 
       tools.log(`using scope: ${scope}`);
 
-      Object.keys(registries).forEach(registry => {
+      Object.keys(registries).forEach(async registry => {
         const { url, token } = registries[registry];
         tools.log(`Publishing to ${registry}...`);
         try {
-          exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`]);
-          exec('npm', ['publish']);
+          core.group(registry);
+          exec('echo', [`//${url}/:_authToken=${token}`, '>', `.npmrc`]).then(() => {
+            exec('npm', ['publish']);
+          });
         } catch (error) {
           core.setFailed(`Failed to publish! ${error.message}`);
         }
+        
         tools.log(`Successfully published to ${registry} !`);
+        core.ExitCode(0);
       });
     }
 });
