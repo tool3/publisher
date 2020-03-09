@@ -3226,13 +3226,12 @@ Toolkit.run(async tools => {
         tools.log(`Publishing to ${registry}...`);
 
         try {
-          await exec('echo', [`//${url}/:_authToken=${token}`, '>', '.npmrc']);
-          await exec('npm', ['publish']);
+          await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
+          tools.log(`Successfully published to ${registry} !`);
         } catch (error) {
           Promise.reject(error);
         }
 
-        tools.log(`Successfully published to ${registry} !`);
       }, Promise.resolve());
 
     } catch (error) {
