@@ -971,7 +971,6 @@ async function run() {
 
       const { url, token } = registries[registry];
       
-
       try {
         core.exportVariable('NODE_AUTH_TOKEN', token);
         await exec('npm', ['publish', `--registry=https://${url}`]);
