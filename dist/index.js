@@ -3220,15 +3220,21 @@ Toolkit.run(async tools => {
 
       await Object.keys(registries).reduce(async (promise, registry) => {
         await promise;
-        
+
         core.group(registry);
         const { url, token } = registries[registry];
         tools.log(`Publishing to ${registry}...`);
-        await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
-        tools.log(`Successfully published to ${registry} !`);
 
+        try {
+          await exec('echo', [`//${url}/:_authToken=${token}`, '>', '.npmrc']);
+          await exec('npm', ['publish']);
+        } catch (error) {
+          Promise.reject(error);
+        }
+
+        tools.log(`Successfully published to ${registry} !`);
       }, Promise.resolve());
-      
+
     } catch (error) {
       core.error(error);
       core.setFailed(`Failed to publish ${error.message}`);
