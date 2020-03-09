@@ -15,13 +15,13 @@ async function run() {
         token: core.getInput('npm_token')
       }
     };
-    
+
     core.info(`using scope: ${scope}`);
 
     await Object.keys(registries).reduce(async (promise, registry) => {
       await promise;
 
-      core.group(registry);
+      core.startGroup(registry);
 
       const { url, token } = registries[registry];
       core.info(`Publishing to ${registry}...`);
@@ -33,6 +33,7 @@ async function run() {
         Promise.reject(error);
       }
 
+      core.endGroup(registry);
     }, Promise.resolve());
 
   } catch (error) {
