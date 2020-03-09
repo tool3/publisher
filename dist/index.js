@@ -950,6 +950,7 @@ const { exec } = __webpack_require__(986);
 async function run() {
   try {
     const scope = core.getInput('scope');
+    const sanitizedScope = scope.includes('@') ? scope : `@${scope}`
 
     const registries = {
       github: {
@@ -969,7 +970,7 @@ async function run() {
       await promise;
 
       core.startGroup(`Publishing to ${registry}`);
-      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
+      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`, `--scope=${sanitizedScope}`]);
       core.info(`Successfully published to ${registry} !`);
 
       core.endGroup(`Publishing to ${registry}`)
