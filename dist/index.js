@@ -3215,13 +3215,14 @@ Toolkit.run(async tools => {
           token: core.getInput('npm_token')
         }
       };
-
+      tools.log('using tools');
       core.info(`using scope: ${scope}`);
-
+      
       await Object.keys(registries).reduce(async (promise, registry) => {
         await promise;
 
         core.group(registry);
+      
         const { url, token } = registries[registry];
         tools.log(`Publishing to ${registry}...`);
 
