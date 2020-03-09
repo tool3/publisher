@@ -946,6 +946,9 @@ module.exports = require("os");
 
 const core = __webpack_require__(470);
 const { exec } = __webpack_require__(986);
+const fs = __webpack_require__(747);
+const os = __webpack_require__(87);
+
 
 async function run() {
   try {
@@ -968,9 +971,9 @@ async function run() {
     await Object.keys(registries).reduce(async (promise, registry) => {
       const { url, token } = registries[registry];
       await promise;
-
       core.startGroup(`Publishing to ${registry}`);
-      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`, `--scope=${sanitizedScope}`]);
+      await fs.writeFile(`${os.homedir()}/.npmrc`, `//${url}/:_authToken=${token}`);
+      await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
       core.info(`Successfully published to ${registry} !`);
 
       core.endGroup(`Publishing to ${registry}`)
@@ -982,6 +985,7 @@ async function run() {
 }
 
 run();
+
 
 /***/ }),
 
