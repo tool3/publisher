@@ -1,5 +1,8 @@
 const core = require('@actions/core');
 const { exec } = require('@actions/exec');
+const fs = require('fs');
+const os = require('os');
+
 
 async function run() {
   try {
@@ -22,9 +25,9 @@ async function run() {
     await Object.keys(registries).reduce(async (promise, registry) => {
       const { url, token } = registries[registry];
       await promise;
-
+      await fs.writeFile(`${os.homedir()}/.npmrc`, `//${url}/:_authToken=${token}`);
       core.startGroup(`Publishing to ${registry}`);
-      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`, `--scope=${sanitizedScope}`]);
+      await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
       core.info(`Successfully published to ${registry} !`);
 
       core.endGroup(`Publishing to ${registry}`)
