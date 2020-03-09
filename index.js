@@ -24,8 +24,8 @@ async function run() {
 
       core.startGroup(`Publishing to ${registry}`);
 
-      await exec('echo', [`'//${url}/:_authToken=${token}'`, '>', '~/.npmrc']);
-      await exec('cat', ['~/.npmrc']);
+      await exec('echo', [`'//${url}/:_authToken=${token}'`, '>', '.npmrc']);
+      await exec('cat', ['.npmrc']);
       await exec('npm', ['publish']);
       core.info(`Successfully published to ${registry} !`);
 
