@@ -963,13 +963,12 @@ function run() {
 
   core.info(`using scope: ${scope}`);
 
-  Object.keys(registries).forEach(async registry => {
+  Object.keys(registries).forEach(registry => {
     core.group(registry);
     const { url, token } = registries[registry];
     core.info('', `Publishing to ${registry}...`);
-    
     try {
-      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
+      exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
     } catch (error) {
       core.setFailed(`Failed to publish ${error.message}`);
     }
