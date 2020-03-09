@@ -967,19 +967,20 @@ async function run() {
     await Object.keys(registries).reduce(async (promise, registry) => {
       await promise;
 
-      core.startGroup(registry);
+      core.startGroup(`Publishing to ${registry}`);
 
       const { url, token } = registries[registry];
-      core.info(`Publishing to ${registry}...`);
+      
 
       try {
-        await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
+        core.exportVariable('NODE_AUTH_TOKEN', token);
+        await exec('npm', ['publish', `--registry=https://${url}`]);
         core.info(`Successfully published to ${registry} !`);
       } catch (error) {
         Promise.reject(error);
       }
 
-      core.endGroup(registry);
+      core.endGroup(`Publishing to ${registry}`)
     }, Promise.resolve());
 
   } catch (error) {
