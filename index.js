@@ -19,19 +19,14 @@ async function run() {
     core.info(`using scope: ${scope}`);
 
     await Object.keys(registries).reduce(async (promise, registry) => {
+      const { url, token } = registries[registry];
       await promise;
 
       core.startGroup(`Publishing to ${registry}`);
 
-      const { url, token } = registries[registry];
-      
-      try {
-        core.exportVariable('NODE_AUTH_TOKEN', token);
-        await exec('npm', ['publish', `--registry=https://${url}`]);
-        core.info(`Successfully published to ${registry} !`);
-      } catch (error) {
-        Promise.reject(error);
-      }
+      await exec('echo', [`//${url}/:_authToken=${token}`, '>', '~/.npmrc']);
+      await exec('npm', ['publish']);
+      core.info(`Successfully published to ${registry} !`);
 
       core.endGroup(`Publishing to ${registry}`)
     }, Promise.resolve());
