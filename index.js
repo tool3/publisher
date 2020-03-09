@@ -23,9 +23,7 @@ async function run() {
       await promise;
 
       core.startGroup(`Publishing to ${registry}`);
-
-      await exec('echo', [`'//${url}/:_authToken=${token}'`, '>', '.npmrc']);
-      await exec('npm', ['publish']);
+      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
       core.info(`Successfully published to ${registry} !`);
 
       core.endGroup(`Publishing to ${registry}`)
