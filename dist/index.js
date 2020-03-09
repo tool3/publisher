@@ -947,33 +947,34 @@ module.exports = require("os");
 const core = __webpack_require__(470);
 const { exec } = __webpack_require__(986);
 
-function run() {
-  const scope = core.getInput('scope');
+async function run() {
+  try {
+    const scope = core.getInput('scope');
 
-  const registries = {
-    github: {
-      url: 'npm.pkg.github.com',
-      token: core.getInput('github_token')
-    },
-    npm: {
-      url: 'registry.npmjs.org',
-      token: core.getInput('npm_token')
-    }
-  };
+    const registries = {
+      github: {
+        url: 'npm.pkg.github.com',
+        token: core.getInput('github_token')
+      },
+      npm: {
+        url: 'registry.npmjs.org',
+        token: core.getInput('npm_token')
+      }
+    };
 
-  core.info(`using scope: ${scope}`);
+    core.info(`using scope: ${scope}`);
 
-  Object.keys(registries).forEach(registry => {
-    core.group(registry);
-    const { url, token } = registries[registry];
-    core.info('', `Publishing to ${registry}...`);
-    try {
-      exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
-    } catch (error) {
-      core.setFailed(`Failed to publish ${error.message}`);
-    }
-    core.info(`Successfully published to ${registry} !`);
-  });
+    Object.keys(registries).forEach(async registry => {
+      core.group(registry);
+      const { url, token } = registries[registry];
+      core.info('', `Publishing to ${registry}...`);
+      await exec('npm', ['publish', `--registry=https://${url}/:_authToken=${token}`]);
+      core.info(`Successfully published to ${registry} !`);
+    });
+
+  } catch (error) {
+    core.setFailed(`Failed to publish ${error.message}`);
+  }
 }
 
 run();
