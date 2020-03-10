@@ -2883,7 +2883,6 @@ const fs = __webpack_require__(747);
 const os = __webpack_require__(87);
 const util = __webpack_require__(669);
 const write = util.promisify(fs.writeFile);
-const read = util.promisify(fs.readFile);
 
 async function run() {
   try {
@@ -2892,6 +2891,8 @@ async function run() {
     const npmrc = `${os.homedir()}/.npmrc`
     const packageJson = __webpack_require__(731);
     const packageName = packageJson.name;
+    const scopedPackage = packageName.includes('@');
+
     const { pusher: { name } } = github.context.payload;
 
     const registries = {
@@ -2905,7 +2906,7 @@ async function run() {
       }
     };
 
-    if (packageName.includes('@')) {
+    if (scopedPackage) {
       sanitizedScope = packageName.split('/')[0];
     }
 
@@ -2918,12 +2919,18 @@ async function run() {
 
       // create a local .npmrc file
       await write(npmrc, `//${url}/:_authToken=${token}\n${sanitizedScope}:registry=https://${url}`);
-      core.info(await read(npmrc));
+
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
-      await exec('npm', ['publish', `--registry=https://${url}`]);
+      const publishArgs = ['publish', `--registry=https://${url}`];
+
+      if (scopedPackage) {
+        publishArgs.pusg(`--scope=${sanitizedScope}`);
+      }
+
+      await exec('npm', publishArgs);
 
       core.info(`Successfully published to ${registry} !`);
       core.endGroup(`Publishing to ${registry}`)
@@ -9779,7 +9786,7 @@ module.exports = (promise, onFinally) => {
 /***/ 731:
 /***/ (function(module) {
 
-module.exports = {"name":"publisher","version":"1.0.47","description":"publish to npm/github registries","main":"index.js","scripts":{"lint":"eslint index.js","package":"ncc build index.js -o dist","test":"eslint index.js && jest","build":"ncc build index.js"},"repository":{"type":"git","url":"git+git@github.com:tool3/publisher.git"},"keywords":["github-action","publish","javascript"],"author":"Tal Hayut","license":"MIT","bugs":{"url":"https://github.com/tool3/publisher/issues"},"homepage":"https://github.com/tool3/publisher#readme","dependencies":{"@actions/core":"^1.1.1","@actions/exec":"^1.0.2","@actions/github":"^2.1.1"},"devDependencies":{"@zeit/ncc":"^0.20.5","eslint":"^6.3.0","husky":"^3.1.0","jest":"^25.1.0"},"husky":{"hooks":{"pre-commit":"npm run build && git add ."}}};
+module.exports = {"name":"publisher","version":"1.0.48","description":"publish to npm/github registries","main":"index.js","scripts":{"lint":"eslint index.js","package":"ncc build index.js -o dist","test":"eslint index.js && jest","build":"ncc build index.js"},"repository":{"type":"git","url":"git+git@github.com:tool3/publisher.git"},"keywords":["github-action","publish","javascript"],"author":"Tal Hayut","license":"MIT","bugs":{"url":"https://github.com/tool3/publisher/issues"},"homepage":"https://github.com/tool3/publisher#readme","dependencies":{"@actions/core":"^1.1.1","@actions/exec":"^1.0.2","@actions/github":"^2.1.1"},"devDependencies":{"@zeit/ncc":"^0.20.5","eslint":"^6.3.0","husky":"^3.1.0","jest":"^25.1.0"},"husky":{"hooks":{"pre-commit":"npm run build && git add ."}}};
 
 /***/ }),
 
