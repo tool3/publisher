@@ -48,7 +48,7 @@ async function run() {
       const publishArgs = ['publish', `--registry=https://${url}`];
 
       if (scopedPackage || scopeAnyWay) {
-        publishArgs.pusg(`--scope=${sanitizedScope}`);
+        publishArgs.push(`--scope=${sanitizedScope}`);
       }
 
       await exec('npm', publishArgs);
