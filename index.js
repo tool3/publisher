@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const { exec } = require('@actions/exec');
-const github = require('@actions/github');
 const fs = require('fs');
 const os = require('os');
 const util = require('util');
@@ -15,11 +14,9 @@ async function run() {
     const packageName = packageJson.name;
     const scopedPackage = packageName.includes('@');
 
-    const { pusher: { name } } = github.context.payload;
-
     const registries = {
       github: {
-        url: `npm.pkg.github.com/@${name}`,
+        url: `npm.pkg.github.com`,
         token: core.getInput('github_token')
       },
       npm: {
