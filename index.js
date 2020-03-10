@@ -14,11 +14,11 @@ async function run() {
 
     const registries = {
       github: {
-        url: `npm.pkg.github.com/@${name}`,
+        url: `https://npm.pkg.github.com/@${name}`,
         token: core.getInput('github_token')
       },
       npm: {
-        url: 'registry.npmjs.org',
+        url: 'https://registry.npmjs.org',
         token: core.getInput('npm_token')
       }
     };
@@ -30,15 +30,15 @@ async function run() {
       await promise;
       core.startGroup(`Publishing to ${registry}`);
 
-      // create a local .npmrc file
-      const npmrc = `${os.homedir()}/.npmrc`
-      await write(npmrc, `${sanitizedScope}:registry=//${url}/:_authToken=${token}`);
-
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
+      // create a local .npmrc file
+      const npmrc = `${os.homedir()}/.npmrc`
+      await write(npmrc, `${sanitizedScope}:registry=${url}/:_authToken=${token}`);
+
       // configure npm and publish
-      await exec('npm', ['config', 'set', 'registry', `https://${url}`]);
+      await exec('npm', ['config', 'set', 'registry', url]);
       await exec('npm', ['publish']);
 
       core.info(`Successfully published to ${registry} !`);
