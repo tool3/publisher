@@ -950,7 +950,6 @@ const fs = __webpack_require__(747);
 const os = __webpack_require__(87);
 const util = __webpack_require__(669);
 const write = util.promisify(fs.writeFile);
-const read = util.promisify(fs.readFile);
 
 async function run() {
   try {
@@ -976,13 +975,10 @@ async function run() {
       core.startGroup(`Publishing to ${registry}`);
 
       const npmrc = `${os.homedir()}/.npmrc`
-      core.info(npmrc);
-      
       await write(npmrc, `//${url}/:_authToken=${token}`);
-      core.info(await read(npmrc));
-      
-      await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
 
+      await exec('npm', ['config', 'set', 'registry', registry]);
+      await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
 
       core.info(`Successfully published to ${registry} !`);
 
