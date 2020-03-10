@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const { exec } = require('@actions/exec');
+const github = require('@actions/github');
 const fs = require('fs');
 const os = require('os');
 const util = require('util');
@@ -9,10 +10,11 @@ async function run() {
   try {
     const scope = core.getInput('scope');
     const sanitizedScope = scope.includes('@') ? scope : `@${scope}`
+    const { pusher: { name } } = github.context.payload;
 
     const registries = {
       github: {
-        url: 'npm.pkg.github.com',
+        url: `npm.pkg.github.com/${name}`,
         token: core.getInput('github_token')
       },
       npm: {
@@ -37,7 +39,13 @@ async function run() {
 
       // configure npm and publish
       await exec('npm', ['config', 'set', 'registry', `https://${url}`]);
-      await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
+
+      const publishArgs = ['publish'];
+      if (scope) {
+        publishArgs.push(`--scope=${sanitizedScope}`);
+      }
+
+      await exec('npm', publishArgs);
 
       core.info(`Successfully published to ${registry} !`);
 
