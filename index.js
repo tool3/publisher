@@ -45,7 +45,7 @@ async function run() {
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
-      await exec('npm', ['publish']);
+      await exec('npm', ['publish', `--registry=https://${url}`]);
 
       core.info(`Successfully published to ${registry} !`);
       core.endGroup(`Publishing to ${registry}`)
