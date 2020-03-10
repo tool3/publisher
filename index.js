@@ -1,5 +1,5 @@
-const core = require('@actions/core');
 const { exec } = require('@actions/exec');
+const core = require('@actions/core');
 const fs = require('fs');
 const os = require('os');
 const util = require('util');
@@ -7,8 +7,9 @@ const write = util.promisify(fs.writeFile);
 
 async function run() {
   try {
-    let scope = core.getInput('scope');
+    const scope = core.getInput('scope');
     let sanitizedScope = scope && (scope.includes('@') ? scope : `@${scope}`)
+    
     const npmrc = `${os.homedir()}/.npmrc`
     const packageJson = require(`${process.cwd()}/package.json`);
     const packageName = packageJson.name;
@@ -35,7 +36,9 @@ async function run() {
 
     await Object.keys(registries).reduce(async (promise, registry) => {
       const { url, token, scopeAnyWay } = registries[registry];
+
       await promise;
+
       core.startGroup(`Publishing to ${registry}`);
 
       // create a local .npmrc file
@@ -46,8 +49,8 @@ async function run() {
 
       // configure npm and publish
       await exec('npm', ['config', 'set', 'registry', scopeAnyWay ? `https://${url}/${sanitizedScope}` : `https://${url}`]);
-      const publishArgs = ['publish'];
 
+      const publishArgs = ['publish'];
       if (scopedPackage || scopeAnyWay) {
         publishArgs.push(`--scope=${sanitizedScope}`);
       }
