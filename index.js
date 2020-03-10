@@ -14,7 +14,7 @@ async function run() {
 
     const registries = {
       github: {
-        url: `npm.pkg.github.com/${name}`,
+        url: `npm.pkg.github.com/@${name}`,
         token: core.getInput('github_token')
       },
       npm: {
@@ -32,20 +32,14 @@ async function run() {
 
       // create a local .npmrc file
       const npmrc = `${os.homedir()}/.npmrc`
-      await write(npmrc, `//${url}/:_authToken=${token}`);
+      await write(npmrc, `${sanitizedScope}:registry=//${url}/:_authToken=${token}`);
 
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
       await exec('npm', ['config', 'set', 'registry', `https://${url}`]);
-
-      const publishArgs = ['publish'];
-      if (scope) {
-        publishArgs.push(`--scope=${sanitizedScope}`);
-      }
-
-      await exec('npm', publishArgs);
+      await exec('npm', ['publish']);
 
       core.info(`Successfully published to ${registry} !`);
 
