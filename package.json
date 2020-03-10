@@ -1,6 +1,6 @@
 {
   "name": "publisher",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "description": "publish to npm/github registries",
   "main": "index.js",
   "scripts": {
