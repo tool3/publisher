@@ -977,7 +977,7 @@ async function run() {
       const npmrc = `${os.homedir()}/.npmrc`
       await write(npmrc, `//${url}/:_authToken=${token}`);
 
-      await exec('npm', ['config', 'set', 'registry', registry]);
+      await exec('npm', ['config', 'set', 'registry', `https://${url}`]);
       await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
 
       core.info(`Successfully published to ${registry} !`);
