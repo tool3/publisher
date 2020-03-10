@@ -45,7 +45,7 @@ async function run() {
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
-      const publishArgs = ['publish', `--registry=https://${url}`];
+      const publishArgs = ['publish', `--registry=https://${scopeAnyWay ? `${url}/${sanitizedScope}` : url}`];
 
       if (scopedPackage || scopeAnyWay) {
         publishArgs.push(`--scope=${sanitizedScope}`);
