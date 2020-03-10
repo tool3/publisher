@@ -38,15 +38,16 @@ async function run() {
       await promise;
       core.startGroup(`Publishing to ${registry}`);
 
+      const regstr = scopeAnyWay ? `${url}/${sanitizedScope}` : url;
+
       // create a local .npmrc file
-      await write(npmrc, `//${url}/:_authToken=${token}`);
+      await write(npmrc, `//${regstr}/:_authToken=${token}`);
 
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
-      const regstr = scopeAnyWay ? `${url}/${sanitizedScope}` : url;
-      const publishArgs = ['publish', `--registry=${regstr}`];
+      const publishArgs = ['publish'];
 
       if (scopedPackage || scopeAnyWay) {
         publishArgs.push(`--scope=${sanitizedScope}`);
