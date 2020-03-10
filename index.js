@@ -28,9 +28,14 @@ async function run() {
       await promise;
       core.startGroup(`Publishing to ${registry}`);
 
+      // create a local .npmrc file
       const npmrc = `${os.homedir()}/.npmrc`
       await write(npmrc, `//${url}/:_authToken=${token}`);
 
+      // get latest tags
+      await exec('git', ['pull', 'origin', 'master', '--tags']);
+
+      // configure npm and publish
       await exec('npm', ['config', 'set', 'registry', `https://${url}`]);
       await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
 
