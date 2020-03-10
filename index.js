@@ -31,9 +31,10 @@ async function run() {
 
       const npmrc = `${os.homedir()}/.npmrc`
       core.info(npmrc);
-      core.info(await read(npmrc));
       
       await write(npmrc, `//${url}/:_authToken=${token}`);
+      core.info(await read(npmrc));
+      
       await exec('npm', ['publish', `--scope=${sanitizedScope}`]);
 
 
