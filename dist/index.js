@@ -2916,8 +2916,7 @@ async function run() {
       await write(npmrc, `${sanitizedScope}:registry=${url}/:_authToken=${token}`);
 
       // configure npm and publish
-      await exec('npm', ['config', 'set', 'registry', url]);
-      await exec('npm', ['publish']);
+      await exec('npm', ['publish', `--registry=${url}`]);
 
       core.info(`Successfully published to ${registry} !`);
 
