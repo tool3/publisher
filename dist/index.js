@@ -2888,15 +2888,16 @@ async function run() {
   try {
     const scope = core.getInput('scope');
     const sanitizedScope = scope.includes('@') ? scope : `@${scope}`
+  
     const { pusher: { name } } = github.context.payload;
 
     const registries = {
       github: {
-        url: `https://npm.pkg.github.com/@${name}`,
+        url: `npm.pkg.github.com/@${name}`,
         token: core.getInput('github_token')
       },
       npm: {
-        url: 'https://registry.npmjs.org',
+        url: 'registry.npmjs.org',
         token: core.getInput('npm_token')
       }
     };
@@ -2908,15 +2909,21 @@ async function run() {
       await promise;
       core.startGroup(`Publishing to ${registry}`);
 
+      // create a local .npmrc file
+      const npmrc = `${os.homedir()}/.npmrc`
+      await write(npmrc, `//${url}/:_authToken=${token}`);
+
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
-      // create a local .npmrc file
-      const npmrc = `${os.homedir()}/.npmrc`
-      await write(npmrc, `${sanitizedScope}:registry=${url}/:_authToken=${token}`);
-
       // configure npm and publish
-      await exec('npm', ['publish', `--registry=${url}`]);
+      const publishArgs = ['publish', `--registry=https://${url}`];
+
+      if (scope) {
+        publishArgs.push(`--scope=${sanitizedScope}`);
+      }
+
+      await exec('npm', publishArgs);
 
       core.info(`Successfully published to ${registry} !`);
 
