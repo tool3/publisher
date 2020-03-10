@@ -38,7 +38,7 @@ async function run() {
       core.startGroup(`Publishing to ${registry}`);
 
       // create a local .npmrc file
-      await write(npmrc, `${sanitizedScope}:registry=https://${url}/:_authToken=${token}`);
+      await write(npmrc, `//${url}/:_authToken=${token}\n${sanitizedScope}:registry=https://${url}`);
 
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
