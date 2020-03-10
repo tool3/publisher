@@ -5,13 +5,14 @@ const fs = require('fs');
 const os = require('os');
 const util = require('util');
 const write = util.promisify(fs.writeFile);
-const read = util.promisify(fs.readFile);
 
 async function run() {
   try {
-    const scope = core.getInput('scope');
-    const sanitizedScope = scope.includes('@') ? scope : `@${scope}`
-  
+    let scope = core.getInput('scope');
+    let sanitizedScope = scope && (scope.includes('@') ? scope : `@${scope}`)
+    const npmrc = `${os.homedir()}/.npmrc`
+    const packageJson = require(`${process.cwd()}/package.json`);
+    const packageName = packageJson.name;
     const { pusher: { name } } = github.context.payload;
 
     const registries = {
@@ -25,6 +26,10 @@ async function run() {
       }
     };
 
+    if (packageName.includes('@')) {
+      sanitizedScope = packageName.split('/')[0];
+    }
+
     core.info(`using scope: ${scope}`);
 
     await Object.keys(registries).reduce(async (promise, registry) => {
@@ -33,17 +38,13 @@ async function run() {
       core.startGroup(`Publishing to ${registry}`);
 
       // create a local .npmrc file
-      const npmrc = `${os.homedir()}/.npmrc`
       await write(npmrc, `${sanitizedScope}:registry=https://${url}/:_authToken=${token}`);
 
-      // debug
-      core.info(await read(npmrc));
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
-      const publishArgs = ['publish', `--registry=https://${url}`];
-      await exec('npm', publishArgs);
+      await exec('npm', ['publish', `--registry=https://${url}`]);
 
       core.info(`Successfully published to ${registry} !`);
       core.endGroup(`Publishing to ${registry}`)
