@@ -17,11 +17,13 @@ async function run() {
     const registries = {
       github: {
         url: `npm.pkg.github.com`,
-        token: core.getInput('github_token')
+        token: core.getInput('github_token'),
+        scopeAnyWay: true
       },
       npm: {
         url: 'registry.npmjs.org',
-        token: core.getInput('npm_token')
+        token: core.getInput('npm_token'),
+        scopeAnyWay: false
       }
     };
 
@@ -32,7 +34,7 @@ async function run() {
     core.info(`using scope: ${scope}`);
 
     await Object.keys(registries).reduce(async (promise, registry) => {
-      const { url, token } = registries[registry];
+      const { url, token, scopeAnyWay } = registries[registry];
       await promise;
       core.startGroup(`Publishing to ${registry}`);
 
@@ -45,7 +47,7 @@ async function run() {
       // configure npm and publish
       const publishArgs = ['publish', `--registry=https://${url}`];
 
-      if (scopedPackage) {
+      if (scopedPackage || scopeAnyWay) {
         publishArgs.pusg(`--scope=${sanitizedScope}`);
       }
 
