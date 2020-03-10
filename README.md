@@ -9,10 +9,10 @@ using `publisher` is easy, all you do is add the relevant publish step in your a
 an example step would be:   
 ```yaml
 - uses: tool3/publisher@v1
-        with:
-          npm_token: ${{secrets.NPM_TOKEN}}
-          github_token: ${{secrets.GP_TOKEN}}
-          scope: "@tool3"
+  with:
+    npm_token: ${{secrets.NPM_TOKEN}}
+    github_token: ${{secrets.GP_TOKEN}}
+    scope: "@tool3"
 ```
 
 # Options
@@ -56,7 +56,4 @@ jobs:
           npm_token: ${{secrets.NPM_TOKEN}}
           github_token: ${{secrets.GP_TOKEN}}
           scope: "@tool3"
-      - run: | 
-          npm ci
-          git pull origin master --tags
 ```
