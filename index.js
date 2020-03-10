@@ -5,6 +5,7 @@ const fs = require('fs');
 const os = require('os');
 const util = require('util');
 const write = util.promisify(fs.writeFile);
+const read = util.promisify(fs.readFile);
 
 async function run() {
   try {
@@ -33,23 +34,20 @@ async function run() {
 
       // create a local .npmrc file
       const npmrc = `${os.homedir()}/.npmrc`
-      await write(npmrc, `//${url}/:_authToken=${token}`);
+      await write(npmrc, `${sanitizedScope}:registry=https://${url}/:_authToken=${token}`);
 
+      // debug
+      core.info(await read(npmrc));
       // get latest tags
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
       const publishArgs = ['publish', `--registry=https://${url}`];
-
-      if (scope) {
-        publishArgs.push(`--scope=${sanitizedScope}`);
-      }
-
       await exec('npm', publishArgs);
 
       core.info(`Successfully published to ${registry} !`);
-
       core.endGroup(`Publishing to ${registry}`)
+
     }, Promise.resolve());
 
   } catch (error) {
