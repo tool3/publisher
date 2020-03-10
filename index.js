@@ -45,7 +45,7 @@ async function run() {
       await exec('git', ['pull', 'origin', 'master', '--tags']);
 
       // configure npm and publish
-      await exec('npm', ['config', 'set', 'registry', scopeAnyWay ? `${url}/${sanitizedScope}` : url]);
+      await exec('npm', ['config', 'set', 'registry', scopeAnyWay ? `https://${url}/${sanitizedScope}` : `https://${url}`]);
       const publishArgs = ['publish'];
 
       if (scopedPackage || scopeAnyWay) {
