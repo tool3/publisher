@@ -82,110 +82,6 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(663);
-/******/ 	};
-/******/
-/******/ 	// run startup
-/******/ 	return startup();
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ 87:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(87);
-
-/***/ }),
-
-/***/ 129:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(129);
-
-/***/ }),
-
-/***/ 211:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(211);
-
-/***/ }),
-
-/***/ 357:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(357);
-
-/***/ }),
-
-/***/ 413:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(413);
-
-/***/ }),
-
-/***/ 605:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(605);
-
-/***/ }),
-
-/***/ 614:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(614);
-
-/***/ }),
-
-/***/ 622:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(622);
-
-/***/ }),
-
-/***/ 663:
-/***/ (function(module, __unusedexports, __nested_webpack_require_2103__) {
-
-module.exports =
-/******/ (function(modules, runtime) { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	__webpack_require__.ab = __dirname + "/";
-/******/
-/******/ 	// the startup function
-/******/ 	function startup() {
-/******/ 		// Load entry module and return exports
 /******/ 		return __webpack_require__(662);
 /******/ 	};
 /******/
@@ -448,7 +344,7 @@ function hasPreviousPage (link) {
 /***/ 87:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(87);
+module.exports = __webpack_require__(87);
 
 /***/ }),
 
@@ -2045,7 +1941,7 @@ exports.withCustomRequest = withCustomRequest;
 /***/ 129:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(129);
+module.exports = __webpack_require__(129);
 
 /***/ }),
 
@@ -2885,7 +2781,7 @@ exports.endpoint = endpoint;
 /***/ 211:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(211);
+module.exports = __webpack_require__(211);
 
 /***/ }),
 
@@ -4985,7 +4881,7 @@ exports.group = group;
 /***/ 357:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(357);
+module.exports = __webpack_require__(357);
 
 /***/ }),
 
@@ -5077,7 +4973,7 @@ module.exports = opts => {
 /***/ 413:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(413);
+module.exports = __webpack_require__(413);
 
 /***/ }),
 
@@ -10222,7 +10118,7 @@ function removeHook (state, name, method) {
 /***/ 605:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(605);
+module.exports = __webpack_require__(605);
 
 /***/ }),
 
@@ -10402,14 +10298,14 @@ function getFirstPage (octokit, link, headers) {
 /***/ 614:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(614);
+module.exports = __webpack_require__(614);
 
 /***/ }),
 
 /***/ 622:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(622);
+module.exports = __webpack_require__(622);
 
 /***/ }),
 
@@ -10922,6 +10818,9 @@ async function run() {
     const nccArgs = core.getInput('ncc_args');
     const src = path.resolve(path.join(__dirname, core.getInput('src')));
 
+    // pull latest
+    await exec('git', ['pull', 'origin', `HEAD:${inputBranch}`]);
+
     core.startGroup(`Compiling ${src}`);
 
     // install dependencies
@@ -10960,13 +10859,13 @@ run();
 /***/ }),
 
 /***/ 667:
-/***/ (function(__unusedmodule, exports, __nested_webpack_require_291928__) {
+/***/ (function(__unusedmodule, exports, __nested_webpack_require_292014__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __nested_webpack_require_291928__(747);
-const os_1 = __nested_webpack_require_291928__(87);
+const fs_1 = __nested_webpack_require_292014__(747);
+const os_1 = __nested_webpack_require_292014__(87);
 class Context {
     /**
      * Hydrate the context from the environment
@@ -11015,16 +10914,16 @@ exports.Context = Context;
 /***/ 669:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(669);
+module.exports = __webpack_require__(669);
 
 /***/ }),
 
 /***/ 689:
-/***/ (function(module, __unusedexports, __nested_webpack_require_293867__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_293953__) {
 
 module.exports = octokitValidate;
 
-const validate = __nested_webpack_require_293867__(606);
+const validate = __nested_webpack_require_293953__(606);
 
 function octokitValidate(octokit) {
   octokit.hook.before("request", validate.bind(null, octokit));
@@ -11034,15 +10933,15 @@ function octokitValidate(octokit) {
 /***/ }),
 
 /***/ 699:
-/***/ (function(module, __unusedexports, __nested_webpack_require_294137__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_294223__) {
 
 module.exports = parseOptions;
 
-const { Deprecation } = __nested_webpack_require_294137__(782);
-const { getUserAgent } = __nested_webpack_require_294137__(772);
-const once = __nested_webpack_require_294137__(340);
+const { Deprecation } = __nested_webpack_require_294223__(782);
+const { getUserAgent } = __nested_webpack_require_294223__(772);
+const once = __nested_webpack_require_294223__(340);
 
-const pkg = __nested_webpack_require_294137__(96);
+const pkg = __nested_webpack_require_294223__(96);
 
 const deprecateOptionsTimeout = once((log, deprecation) =>
   log.warn(deprecation)
@@ -11130,15 +11029,15 @@ function parseOptions(options, log, hook) {
 /***/ }),
 
 /***/ 715:
-/***/ (function(module, __unusedexports, __nested_webpack_require_296653__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_296739__) {
 
 // Note: since nyc uses this module to output coverage, any lines
 // that are in the direct sync flow of nyc's outputCoverage are
 // ignored, since we can never get coverage for them.
-var assert = __nested_webpack_require_296653__(357)
-var signals = __nested_webpack_require_296653__(773)
+var assert = __nested_webpack_require_296739__(357)
+var signals = __nested_webpack_require_296739__(773)
 
-var EE = __nested_webpack_require_296653__(614)
+var EE = __nested_webpack_require_296739__(614)
 /* istanbul ignore if */
 if (typeof EE !== 'function') {
   EE = EE.EventEmitter
@@ -11322,16 +11221,16 @@ module.exports = {"activity":{"checkStarringRepo":{"method":"GET","params":{"own
 /***/ 747:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(747);
+module.exports = __webpack_require__(747);
 
 /***/ }),
 
 /***/ 757:
-/***/ (function(module, __unusedexports, __nested_webpack_require_450379__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_450465__) {
 
 module.exports = withAuthorizationPrefix;
 
-const atob = __nested_webpack_require_450379__(446);
+const atob = __nested_webpack_require_450465__(446);
 
 const REGEX_IS_BASIC_AUTH = /^[\w-]+:/;
 
@@ -11357,9 +11256,9 @@ function withAuthorizationPrefix(authorization) {
 /***/ }),
 
 /***/ 760:
-/***/ (function(module, __unusedexports, __nested_webpack_require_450988__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_451074__) {
 
-const factory = __nested_webpack_require_450988__(140);
+const factory = __nested_webpack_require_451074__(140);
 
 module.exports = factory();
 
@@ -11369,12 +11268,12 @@ module.exports = factory();
 /***/ 761:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(761);
+module.exports = __webpack_require__(761);
 
 /***/ }),
 
 /***/ 772:
-/***/ (function(__unusedmodule, exports, __nested_webpack_require_451232__) {
+/***/ (function(__unusedmodule, exports, __nested_webpack_require_451318__) {
 
 "use strict";
 
@@ -11383,7 +11282,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var osName = _interopDefault(__nested_webpack_require_451232__(973));
+var osName = _interopDefault(__nested_webpack_require_451318__(973));
 
 function getUserAgent() {
   try {
@@ -11514,11 +11413,11 @@ exports.Deprecation = Deprecation;
 /***/ }),
 
 /***/ 785:
-/***/ (function(module, __unusedexports, __nested_webpack_require_454173__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_454259__) {
 
 "use strict";
 
-const os = __nested_webpack_require_454173__(87);
+const os = __nested_webpack_require_454259__(87);
 
 const nameMap = new Map([
 	[19, 'Catalina'],
@@ -11554,11 +11453,11 @@ module.exports.default = macosRelease;
 /***/ }),
 
 /***/ 799:
-/***/ (function(module, __unusedexports, __nested_webpack_require_454912__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_454998__) {
 
 module.exports = getNextPage
 
-const getPage = __nested_webpack_require_454912__(644)
+const getPage = __nested_webpack_require_454998__(644)
 
 function getNextPage (octokit, link, headers) {
   return getPage(octokit, link, 'next', headers)
@@ -11568,12 +11467,12 @@ function getNextPage (octokit, link, headers) {
 /***/ }),
 
 /***/ 801:
-/***/ (function(module, __unusedexports, __nested_webpack_require_455172__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_455258__) {
 
 module.exports = hasFirstPage
 
-const deprecate = __nested_webpack_require_455172__(727)
-const getPageLinks = __nested_webpack_require_455172__(302)
+const deprecate = __nested_webpack_require_455258__(727)
+const getPageLinks = __nested_webpack_require_455258__(302)
 
 function hasFirstPage (link) {
   deprecate(`octokit.hasFirstPage() – You can use octokit.paginate or async iterators instead: https://github.com/octokit/rest.js#pagination.`)
@@ -11592,11 +11491,11 @@ eval("require")("encoding");
 /***/ }),
 
 /***/ 821:
-/***/ (function(module, __unusedexports, __nested_webpack_require_455667__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_455753__) {
 
 module.exports = octokitRegisterEndpoints;
 
-const registerEndpoints = __nested_webpack_require_455667__(261);
+const registerEndpoints = __nested_webpack_require_455753__(261);
 
 function octokitRegisterEndpoints(octokit) {
   octokit.registerEndpoints = registerEndpoints.bind(null, octokit);
@@ -11643,14 +11542,14 @@ function octokitDebug(octokit) {
 /***/ 835:
 /***/ (function(module) {
 
-module.exports = __nested_webpack_require_2103__(835);
+module.exports = __webpack_require__(835);
 
 /***/ }),
 
 /***/ 848:
-/***/ (function(module, __unusedexports, __nested_webpack_require_456876__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_456962__) {
 
-var once = __nested_webpack_require_456876__(340);
+var once = __nested_webpack_require_456962__(340);
 
 var noop = function() {};
 
@@ -11805,11 +11704,11 @@ function register (state, name, method, options) {
 /***/ }),
 
 /***/ 921:
-/***/ (function(module, __unusedexports, __nested_webpack_require_460615__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_460701__) {
 
 module.exports = registerPlugin;
 
-const factory = __nested_webpack_require_460615__(140);
+const factory = __nested_webpack_require_460701__(140);
 
 function registerPlugin(plugins, pluginFunction) {
   return factory(
@@ -11821,13 +11720,13 @@ function registerPlugin(plugins, pluginFunction) {
 /***/ }),
 
 /***/ 928:
-/***/ (function(module, __unusedexports, __nested_webpack_require_460937__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_461023__) {
 
 "use strict";
 
 
-const fs = __nested_webpack_require_460937__(747);
-const shebangCommand = __nested_webpack_require_460937__(496);
+const fs = __nested_webpack_require_461023__(747);
+const shebangCommand = __nested_webpack_require_461023__(496);
 
 function readShebang(command) {
     // Read the first 150 bytes from the file
@@ -11940,12 +11839,12 @@ module.exports = isPlainObject;
 /***/ }),
 
 /***/ 950:
-/***/ (function(module, __unusedexports, __nested_webpack_require_463272__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_463358__) {
 
 "use strict";
 
-const pump = __nested_webpack_require_463272__(562);
-const bufferStream = __nested_webpack_require_463272__(952);
+const pump = __nested_webpack_require_463358__(562);
+const bufferStream = __nested_webpack_require_463358__(952);
 
 class MaxBufferError extends Error {
 	constructor() {
@@ -12051,11 +11950,11 @@ function addHook (state, kind, name, hook) {
 /***/ }),
 
 /***/ 952:
-/***/ (function(module, __unusedexports, __nested_webpack_require_465660__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_465746__) {
 
 "use strict";
 
-const {PassThrough} = __nested_webpack_require_465660__(413);
+const {PassThrough} = __nested_webpack_require_465746__(413);
 
 module.exports = options => {
 	options = Object.assign({}, options);
@@ -12110,7 +12009,7 @@ module.exports = options => {
 /***/ }),
 
 /***/ 967:
-/***/ (function(__unusedmodule, exports, __nested_webpack_require_466598__) {
+/***/ (function(__unusedmodule, exports, __nested_webpack_require_466684__) {
 
 "use strict";
 
@@ -12124,10 +12023,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const childProcess = __nested_webpack_require_466598__(129);
-const path = __nested_webpack_require_466598__(622);
-const util_1 = __nested_webpack_require_466598__(669);
-const ioUtil = __nested_webpack_require_466598__(500);
+const childProcess = __nested_webpack_require_466684__(129);
+const path = __nested_webpack_require_466684__(622);
+const util_1 = __nested_webpack_require_466684__(669);
+const ioUtil = __nested_webpack_require_466684__(500);
 const exec = util_1.promisify(childProcess.exec);
 /**
  * Copies a file or folder.
@@ -12407,13 +12306,13 @@ function copyFile(srcFile, destFile, force) {
 /***/ }),
 
 /***/ 973:
-/***/ (function(module, __unusedexports, __nested_webpack_require_478234__) {
+/***/ (function(module, __unusedexports, __nested_webpack_require_478320__) {
 
 "use strict";
 
-const os = __nested_webpack_require_478234__(87);
-const macosRelease = __nested_webpack_require_478234__(785);
-const winRelease = __nested_webpack_require_478234__(192);
+const os = __nested_webpack_require_478320__(87);
+const macosRelease = __nested_webpack_require_478320__(785);
+const winRelease = __nested_webpack_require_478320__(192);
 
 const osName = (platform, release) => {
 	if (!platform && release) {
@@ -12457,38 +12356,6 @@ const osName = (platform, release) => {
 
 module.exports = osName;
 
-
-/***/ })
-
-/******/ });
-
-/***/ }),
-
-/***/ 669:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(669);
-
-/***/ }),
-
-/***/ 747:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(747);
-
-/***/ }),
-
-/***/ 761:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(761);
-
-/***/ }),
-
-/***/ 835:
-/***/ (function(module) {
-
-module.exports = __webpack_require__(835);
 
 /***/ })
 
