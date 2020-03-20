@@ -32,7 +32,7 @@ async function run() {
       sanitizedScope = packageName.split('/')[0];
     }
 
-    core.info(`Using scope: ${sanitizedScope}`);
+    core.info(`Using scope ${sanitizedScope}`);
     
     await Object.keys(registries).reduce(async (promise, registry) => {
       const { url, token, scopeAnyWay } = registries[registry];
