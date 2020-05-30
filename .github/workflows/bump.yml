@@ -3,7 +3,6 @@ name: bump
 on: [push]
     # branches:
       # - release
-      #
 
 jobs:
   bump:
