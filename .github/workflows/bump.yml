@@ -1,8 +1,9 @@
 name: bump
 
-on: [push]
-    # branches:
-      # - release
+on:
+  push:
+    branches:
+      - release
 
 jobs:
   bump:
@@ -10,9 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: tool3/bump@master
-      id: bump
       with:
         github_token: ${{ secrets.GP_TOKEN }}
-    - name: checkout output
-      run: echo "${{ steps.bump.outputs.version }}"
         
