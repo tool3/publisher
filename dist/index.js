@@ -1559,7 +1559,7 @@ function isUnixExecutable(stats) {
 /***/ 731:
 /***/ (function(module) {
 
-module.exports = {"name":"publisher","version":"1.0.64","description":"publish to npm/github registries","main":"index.js","scripts":{"lint":"eslint index.js","package":"ncc build index.js -o dist","test":"eslint index.js && jest","build":"ncc build index.js"},"repository":{"type":"git","url":"git+git@github.com:tool3/publisher.git"},"keywords":["github-action","publish","javascript"],"author":"Tal Hayut","license":"MIT","bugs":{"url":"https://github.com/tool3/publisher/issues"},"homepage":"https://github.com/tool3/publisher#readme","dependencies":{"@actions/core":"^1.1.1","@actions/exec":"^1.0.2"},"devDependencies":{"@zeit/ncc":"^0.20.5","eslint":"^6.3.0","jest":"^25.1.0"}};
+module.exports = {"name":"publisher","version":"1.0.67","description":"publish to npm/github registries","main":"index.js","scripts":{"lint":"eslint index.js","package":"ncc build index.js -o dist","test":"eslint index.js && jest","build":"ncc build index.js"},"repository":{"type":"git","url":"git+git@github.com:tool3/publisher.git"},"keywords":["github-action","publish","javascript"],"author":"Tal Hayut","license":"MIT","bugs":{"url":"https://github.com/tool3/publisher/issues"},"homepage":"https://github.com/tool3/publisher#readme","dependencies":{"@actions/core":"^1.1.1","@actions/exec":"^1.0.2"},"devDependencies":{"@zeit/ncc":"^0.20.5","eslint":"^6.3.0","jest":"^25.1.0"}};
 
 /***/ }),
 
