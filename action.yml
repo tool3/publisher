@@ -7,7 +7,7 @@ inputs:
     required: false
   github_token:  
     description: 'github access token'
-    required: true
+    required: false
   npm_token:  
     description: 'npm private token'
     required: true
