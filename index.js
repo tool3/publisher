@@ -16,17 +16,22 @@ async function run() {
     const scopedPackage = packageName.includes('@');
 
     const registries = {
-      github: {
-        url: `npm.pkg.github.com`,
-        token: core.getInput('github_token'),
-        scopeAnyWay: true
-      },
       npm: {
         url: 'registry.npmjs.org',
         token: core.getInput('npm_token'),
         scopeAnyWay: false
       }
     };
+
+    const githubToken = core.getInput('github_token');
+
+    if (githubToken) {
+      registries['github'] = {
+        url: `npm.pkg.github.com`,
+        token: githubToken,
+        scopeAnyWay: true
+      }
+    }
 
     if (scopedPackage) {
       sanitizedScope = packageName.split('/')[0];
