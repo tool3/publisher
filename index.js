@@ -1,5 +1,6 @@
 const { exec } = require('@actions/exec');
 const core = require('@actions/core');
+const github = require('@actions/github');
 const fs = require('fs');
 const os = require('os');
 const util = require('util');
@@ -8,7 +9,7 @@ const write = util.promisify(fs.writeFile);
 async function run() {
   try {
     const scope = core.getInput('scope');
-    let sanitizedScope = (scope && (scope.includes('@') ? scope : `@${scope}`)) || `@${process.env.GH_USERNAME}`
+    let sanitizedScope = (scope && (scope.includes('@') ? scope : `@${scope}`)) || `@${github.context.actor}`
     
     const npmrc = `${os.homedir()}/.npmrc`
     const packageJson = require(`${process.cwd()}/package.json`);
