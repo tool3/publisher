@@ -1029,7 +1029,7 @@ const write = util.promisify(fs.writeFile);
 async function run() {
   try {
     const scope = core.getInput('scope');
-    let sanitizedScope = scope && (scope.includes('@') ? scope : `@${scope}`)
+    let sanitizedScope = (scope && (scope.includes('@') ? scope : `@${scope}`)) || `@${process.env.GH_USERNAME}`
     
     const npmrc = `${os.homedir()}/.npmrc`
     const packageJson = __webpack_require__(731);
