@@ -340,6 +340,52 @@ function copyFile(srcFile, destFile, force) {
 
 /***/ }),
 
+/***/ 3:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+/*!
+ * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
+function isObject(o) {
+  return Object.prototype.toString.call(o) === '[object Object]';
+}
+
+function isPlainObject(o) {
+  var ctor,prot;
+
+  if (isObject(o) === false) return false;
+
+  // If has modified constructor
+  ctor = o.constructor;
+  if (ctor === undefined) return true;
+
+  // If has modified prototype
+  prot = ctor.prototype;
+  if (isObject(prot) === false) return false;
+
+  // If constructor does not have an Object-specific method
+  if (prot.hasOwnProperty('isPrototypeOf') === false) {
+    return false;
+  }
+
+  // Most likely a plain Object
+  return true;
+}
+
+exports.isPlainObject = isPlainObject;
+
+
+/***/ }),
+
 /***/ 9:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
@@ -1155,12 +1201,12 @@ async function run() {
       registries['github'] = {
         url: `npm.pkg.github.com`,
         token: githubToken,
-        scopeAnyWay: true
+        scopeAnyWay: false
       }
     }
 
     if (scopedPackage) {
-      sanitizedScope = packageName.split('/')[0];
+      sanitizedScope = scope || packageName.split('/')[0];
     }
 
     core.info(`Using scope ${sanitizedScope}`);
@@ -1815,7 +1861,10 @@ function isPlainObject(o) {
 exports.isPlainObject = isPlainObject;
 
 
-/***/ }),
+function removeHook (state, name, method) {
+  if (!state.registry[name]) {
+    return
+  }
 
 /***/ 357:
 /***/ (function(module) {
