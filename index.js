@@ -30,12 +30,12 @@ async function run() {
       registries['github'] = {
         url: `npm.pkg.github.com`,
         token: githubToken,
-        scopeAnyWay: true
+        scopeAnyWay: false
       }
     }
 
     if (scopedPackage) {
-      sanitizedScope = packageName.split('/')[0];
+      sanitizedScope = scope || packageName.split('/')[0];
     }
 
     core.info(`Using scope ${sanitizedScope}`);
