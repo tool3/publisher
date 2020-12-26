@@ -30,7 +30,7 @@ async function run() {
       registries['github'] = {
         url: `npm.pkg.github.com`,
         token: githubToken,
-        scopeAnyWay: false
+        scopeAnyWay: true
       }
     }
 
